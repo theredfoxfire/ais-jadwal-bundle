@@ -6,14 +6,14 @@
 
 
     <parameters>
-        <parameter key="ais_dosen.dosen.handler.class">Ais\DosenBundle\Handler\DosenHandler</parameter>
-        <parameter key="ais_dosen.dosen.class">Ais\DosenBundle\Entity\Dosen</parameter>
+        <parameter key="ais_jadwal.jadwal.handler.class">Ais\JadwalBundle\Handler\JadwalHandler</parameter>
+        <parameter key="ais_jadwal.jadwal.class">Ais\JadwalBundle\Entity\Jadwal</parameter>
     </parameters>
 
     <services>
-        <service id="ais_dosen.dosen.handler" class="%ais_dosen.dosen.handler.class%">
+        <service id="ais_jadwal.jadwal.handler" class="%ais_jadwal.jadwal.handler.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument>%ais_dosen.dosen.class%</argument>
+            <argument>%ais_jadwal.jadwal.class%</argument>
             <argument type="service" id="form.factory"></argument>
         </service>
     </services>

@@ -1,11 +1,11 @@
 <?php
 
-namespace Ais\DosenBundle\Tests\Controller;
+namespace Ais\JadwalBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase as WebTestCase;
-use Ais\DosenBundle\Tests\Fixtures\Entity\LoadDosenData;
+use Ais\JadwalBundle\Tests\Fixtures\Entity\LoadJadwalData;
 
-class DosenControllerTest extends WebTestCase
+class JadwalControllerTest extends WebTestCase
 {
     public function setUp()
     {
@@ -17,14 +17,14 @@ class DosenControllerTest extends WebTestCase
         $this->client = static::createClient(array(), $this->auth);
     }
 
-    public function testJsonGetDosenAction()
+    public function testJsonGetJadwalAction()
     {
-        $fixtures = array('Ais\DosenBundle\Tests\Fixtures\Entity\LoadDosenData');
+        $fixtures = array('Ais\JadwalBundle\Tests\Fixtures\Entity\LoadJadwalData');
         $this->loadFixtures($fixtures);
-        $dosens = LoadDosenData::$dosens;
-        $dosen = array_pop($dosens);
+        $jadwals = LoadJadwalData::$jadwals;
+        $jadwal = array_pop($jadwals);
 
-        $route =  $this->getUrl('api_1_get_dosen', array('id' => $dosen->getId(), '_format' => 'json'));
+        $route =  $this->getUrl('api_1_get_jadwal', array('id' => $jadwal->getId(), '_format' => 'json'));
 
         $this->client->request('GET', $route, array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
@@ -37,21 +37,21 @@ class DosenControllerTest extends WebTestCase
 
     public function testHeadRoute()
     {
-        $fixtures = array('Ais\DosenBundle\Tests\Fixtures\Entity\LoadDosenData');
+        $fixtures = array('Ais\JadwalBundle\Tests\Fixtures\Entity\LoadJadwalData');
         $this->loadFixtures($fixtures);
-        $dosens = LoadDosenData::$dosens;
-        $dosen = array_pop($dosens);
+        $jadwals = LoadJadwalData::$jadwals;
+        $jadwal = array_pop($jadwals);
 
-        $this->client->request('HEAD',  sprintf('/api/v1/dosens/%d.json', $dosen->getId()), array('ACCEPT' => 'application/json'));
+        $this->client->request('HEAD',  sprintf('/api/v1/jadwals/%d.json', $jadwal->getId()), array('ACCEPT' => 'application/json'));
         $response = $this->client->getResponse();
         $this->assertJsonResponse($response, 200, false);
     }
 
-    public function testJsonNewDosenAction()
+    public function testJsonNewJadwalAction()
     {
         $this->client->request(
             'GET',
-            '/api/v1/dosens/new.json',
+            '/api/v1/jadwals/new.json',
             array(),
             array()
         );
@@ -63,11 +63,11 @@ class DosenControllerTest extends WebTestCase
             $this->client->getResponse()->getContent());
     }
 
-    public function testJsonPostDosenAction()
+    public function testJsonPostJadwalAction()
     {
         $this->client->request(
             'POST',
-            '/api/v1/dosens.json',
+            '/api/v1/jadwals.json',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -77,11 +77,11 @@ class DosenControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), 201, false);
     }
 
-    public function testJsonPostDosenActionShouldReturn400WithBadParameters()
+    public function testJsonPostJadwalActionShouldReturn400WithBadParameters()
     {
         $this->client->request(
             'POST',
-            '/api/v1/dosens.json',
+            '/api/v1/jadwals.json',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -91,19 +91,19 @@ class DosenControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), 400, false);
     }
 
-    public function testJsonPutDosenActionShouldModify()
+    public function testJsonPutJadwalActionShouldModify()
     {
-        $fixtures = array('Ais\DosenBundle\Tests\Fixtures\Entity\LoadDosenData');
+        $fixtures = array('Ais\JadwalBundle\Tests\Fixtures\Entity\LoadJadwalData');
         $this->loadFixtures($fixtures);
-        $dosens = LoadDosenData::$dosens;
-        $dosen = array_pop($dosens);
+        $jadwals = LoadJadwalData::$jadwals;
+        $jadwal = array_pop($jadwals);
 
-        $this->client->request('GET', sprintf('/api/v1/dosens/%d.json', $dosen->getId()), array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', sprintf('/api/v1/jadwals/%d.json', $jadwal->getId()), array('ACCEPT' => 'application/json'));
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode(), $this->client->getResponse()->getContent());
 
         $this->client->request(
             'PUT',
-            sprintf('/api/v1/dosens/%d.json', $dosen->getId()),
+            sprintf('/api/v1/jadwals/%d.json', $jadwal->getId()),
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -114,22 +114,22 @@ class DosenControllerTest extends WebTestCase
         $this->assertTrue(
             $this->client->getResponse()->headers->contains(
                 'Location',
-                sprintf('http://localhost/api/v1/dosens/%d.json', $dosen->getId())
+                sprintf('http://localhost/api/v1/jadwals/%d.json', $jadwal->getId())
             ),
             $this->client->getResponse()->headers
         );
     }
 
-    public function testJsonPutDosenActionShouldCreate()
+    public function testJsonPutJadwalActionShouldCreate()
     {
         $id = 0;
-        $this->client->request('GET', sprintf('/api/v1/dosens/%d.json', $id), array('ACCEPT' => 'application/json'));
+        $this->client->request('GET', sprintf('/api/v1/jadwals/%d.json', $id), array('ACCEPT' => 'application/json'));
 
         $this->assertEquals(404, $this->client->getResponse()->getStatusCode(), $this->client->getResponse()->getContent());
 
         $this->client->request(
             'PUT',
-            sprintf('/api/v1/dosens/%d.json', $id),
+            sprintf('/api/v1/jadwals/%d.json', $id),
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -139,16 +139,16 @@ class DosenControllerTest extends WebTestCase
         $this->assertJsonResponse($this->client->getResponse(), 201, false);
     }
 
-    public function testJsonPatchDosenAction()
+    public function testJsonPatchJadwalAction()
     {
-        $fixtures = array('Ais\DosenBundle\Tests\Fixtures\Entity\LoadDosenData');
+        $fixtures = array('Ais\JadwalBundle\Tests\Fixtures\Entity\LoadJadwalData');
         $this->loadFixtures($fixtures);
-        $dosens = LoadDosenData::$dosens;
-        $dosen = array_pop($dosens);
+        $jadwals = LoadJadwalData::$jadwals;
+        $jadwal = array_pop($jadwals);
 
         $this->client->request(
             'PATCH',
-            sprintf('/api/v1/dosens/%d.json', $dosen->getId()),
+            sprintf('/api/v1/jadwals/%d.json', $jadwal->getId()),
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -159,7 +159,7 @@ class DosenControllerTest extends WebTestCase
         $this->assertTrue(
             $this->client->getResponse()->headers->contains(
                 'Location',
-                sprintf('http://localhost/api/v1/dosens/%d.json', $dosen->getId())
+                sprintf('http://localhost/api/v1/jadwals/%d.json', $jadwal->getId())
             ),
             $this->client->getResponse()->headers
         );

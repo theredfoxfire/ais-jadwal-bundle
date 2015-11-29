@@ -1,14 +1,14 @@
 <?php
 
-namespace Ais\DosenBundle\Handler;
+namespace Ais\JadwalBundle\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormFactoryInterface;
-use Ais\DosenBundle\Model\DosenInterface;
-use Ais\DosenBundle\Form\DosenType;
-use Ais\DosenBundle\Exception\InvalidFormException;
+use Ais\JadwalBundle\Model\JadwalInterface;
+use Ais\JadwalBundle\Form\JadwalType;
+use Ais\JadwalBundle\Exception\InvalidFormException;
 
-class DosenHandler implements DosenHandlerInterface
+class JadwalHandler implements JadwalHandlerInterface
 {
     private $om;
     private $entityClass;
@@ -24,11 +24,11 @@ class DosenHandler implements DosenHandlerInterface
     }
 
     /**
-     * Get a Dosen.
+     * Get a Jadwal.
      *
      * @param mixed $id
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
     public function get($id)
     {
@@ -36,7 +36,7 @@ class DosenHandler implements DosenHandlerInterface
     }
 
     /**
-     * Get a list of Dosens.
+     * Get a list of Jadwals.
      *
      * @param int $limit  the limit of the result
      * @param int $offset starting from the offset
@@ -49,73 +49,73 @@ class DosenHandler implements DosenHandlerInterface
     }
 
     /**
-     * Create a new Dosen.
+     * Create a new Jadwal.
      *
      * @param array $parameters
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
     public function post(array $parameters)
     {
-        $dosen = $this->createDosen();
+        $jadwal = $this->createJadwal();
 
-        return $this->processForm($dosen, $parameters, 'POST');
+        return $this->processForm($jadwal, $parameters, 'POST');
     }
 
     /**
-     * Edit a Dosen.
+     * Edit a Jadwal.
      *
-     * @param DosenInterface $dosen
+     * @param JadwalInterface $jadwal
      * @param array         $parameters
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
-    public function put(DosenInterface $dosen, array $parameters)
+    public function put(JadwalInterface $jadwal, array $parameters)
     {
-        return $this->processForm($dosen, $parameters, 'PUT');
+        return $this->processForm($jadwal, $parameters, 'PUT');
     }
 
     /**
-     * Partially update a Dosen.
+     * Partially update a Jadwal.
      *
-     * @param DosenInterface $dosen
+     * @param JadwalInterface $jadwal
      * @param array         $parameters
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
-    public function patch(DosenInterface $dosen, array $parameters)
+    public function patch(JadwalInterface $jadwal, array $parameters)
     {
-        return $this->processForm($dosen, $parameters, 'PATCH');
+        return $this->processForm($jadwal, $parameters, 'PATCH');
     }
 
     /**
      * Processes the form.
      *
-     * @param DosenInterface $dosen
+     * @param JadwalInterface $jadwal
      * @param array         $parameters
      * @param String        $method
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      *
-     * @throws \Ais\DosenBundle\Exception\InvalidFormException
+     * @throws \Ais\JadwalBundle\Exception\InvalidFormException
      */
-    private function processForm(DosenInterface $dosen, array $parameters, $method = "PUT")
+    private function processForm(JadwalInterface $jadwal, array $parameters, $method = "PUT")
     {
-        $form = $this->formFactory->create(new DosenType(), $dosen, array('method' => $method));
+        $form = $this->formFactory->create(new JadwalType(), $jadwal, array('method' => $method));
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
 
-            $dosen = $form->getData();
-            $this->om->persist($dosen);
-            $this->om->flush($dosen);
+            $jadwal = $form->getData();
+            $this->om->persist($jadwal);
+            $this->om->flush($jadwal);
 
-            return $dosen;
+            return $jadwal;
         }
 
         throw new InvalidFormException('Invalid submitted data', $form);
     }
 
-    private function createDosen()
+    private function createJadwal()
     {
         return new $this->entityClass();
     }

@@ -1,7 +1,7 @@
-# src/Ais/DosenBundle/Resources/config/validation.yml
-Ais\DosenBundle\Entity\Dosen:
+# src/Ais/JadwalBundle/Resources/config/validation.yml
+Ais\JadwalBundle\Entity\Jadwal:
     properties:
-        nama:
+        run_id:
             - NotBlank: ~
             - NotNull: ~
             - Length:

@@ -1,52 +1,39 @@
 <?php
 
-namespace Ais\DosenBundle\Entity;
+namespace Ais\JadwalBundle\Entity;
+
 
 use Doctrine\ORM\Mapping as ORM;
-use Ais\DosenBundle\Model\DosenInterface;
-
+use Ais\JadwalBundle\Model\JadwalInterface;
 /**
- * Dosen
- *
- * @ORM\Table()
- * @ORM\Entity()
+ * Jadwal
  */
-class Dosen implements DosenInterface
+class Jadwal implements JadwalInterface
 {
     /**
-     * @var string
+     * @var integer
      */
-    private $kode;
+    private $id;
 
     /**
      * @var string
      */
-    private $nama;
+    private $run_id;
+
+    /**
+     * @var integer
+     */
+    private $ruang_id;
 
     /**
      * @var string
      */
-    private $nama_singkat;
+    private $hari;
 
     /**
-     * @var string
+     * @var integer
      */
-    private $user_id;
-
-    /**
-     * @var string
-     */
-    private $email;
-
-    /**
-     * @var string
-     */
-    private $phone;
-
-    /**
-     * @var string
-     */
-    private $foto;
+    private $slot_id;
 
     /**
      * @var boolean
@@ -60,171 +47,109 @@ class Dosen implements DosenInterface
 
 
     /**
-     * Set kode
+     * Get id
      *
-     * @param string $kode
-     *
-     * @return Dosen
+     * @return integer
      */
-    public function setKode($kode)
+    public function getId()
     {
-        $this->kode = $kode;
+        return $this->id;
+    }
+
+    /**
+     * Set runId
+     *
+     * @param string $runId
+     *
+     * @return Jadwal
+     */
+    public function setRunId($runId)
+    {
+        $this->run_id = $runId;
 
         return $this;
     }
 
     /**
-     * Get kode
+     * Get runId
      *
      * @return string
      */
-    public function getKode()
+    public function getRunId()
     {
-        return $this->kode;
+        return $this->run_id;
     }
 
     /**
-     * Set nama
+     * Set ruangId
      *
-     * @param string $nama
+     * @param integer $ruangId
      *
-     * @return Dosen
+     * @return Jadwal
      */
-    public function setNama($nama)
+    public function setRuangId($ruangId)
     {
-        $this->nama = $nama;
+        $this->ruang_id = $ruangId;
 
         return $this;
     }
 
     /**
-     * Get nama
+     * Get ruangId
      *
-     * @return string
+     * @return integer
      */
-    public function getNama()
+    public function getRuangId()
     {
-        return $this->nama;
+        return $this->ruang_id;
     }
 
     /**
-     * Set namaSingkat
+     * Set hari
      *
-     * @param string $namaSingkat
+     * @param string $hari
      *
-     * @return Dosen
+     * @return Jadwal
      */
-    public function setNamaSingkat($namaSingkat)
+    public function setHari($hari)
     {
-        $this->nama_singkat = $namaSingkat;
+        $this->hari = $hari;
 
         return $this;
     }
 
     /**
-     * Get namaSingkat
+     * Get hari
      *
      * @return string
      */
-    public function getNamaSingkat()
+    public function getHari()
     {
-        return $this->nama_singkat;
+        return $this->hari;
     }
 
     /**
-     * Set userId
+     * Set slotId
      *
-     * @param string $userId
+     * @param integer $slotId
      *
-     * @return Dosen
+     * @return Jadwal
      */
-    public function setUserId($userId)
+    public function setSlotId($slotId)
     {
-        $this->user_id = $userId;
+        $this->slot_id = $slotId;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get slotId
      *
-     * @return string
+     * @return integer
      */
-    public function getUserId()
+    public function getSlotId()
     {
-        return $this->user_id;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Dosen
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return Dosen
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Set foto
-     *
-     * @param string $foto
-     *
-     * @return Dosen
-     */
-    public function setFoto($foto)
-    {
-        $this->foto = $foto;
-
-        return $this;
-    }
-
-    /**
-     * Get foto
-     *
-     * @return string
-     */
-    public function getFoto()
-    {
-        return $this->foto;
+        return $this->slot_id;
     }
 
     /**
@@ -232,7 +157,7 @@ class Dosen implements DosenInterface
      *
      * @param boolean $isActive
      *
-     * @return Dosen
+     * @return Jadwal
      */
     public function setIsActive($isActive)
     {
@@ -256,7 +181,7 @@ class Dosen implements DosenInterface
      *
      * @param boolean $isDelete
      *
-     * @return Dosen
+     * @return Jadwal
      */
     public function setIsDelete($isDelete)
     {
@@ -274,20 +199,5 @@ class Dosen implements DosenInterface
     {
         return $this->is_delete;
     }
-    
-    /**
-     * @var integer
-     */
-    private $id;
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 }
+

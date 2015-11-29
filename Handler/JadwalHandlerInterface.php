@@ -1,24 +1,24 @@
 <?php
 
-namespace Ais\DosenBundle\Handler;
+namespace Ais\JadwalBundle\Handler;
 
-use Ais\DosenBundle\Model\DosenInterface;
+use Ais\JadwalBundle\Model\JadwalInterface;
 
-interface DosenHandlerInterface
+interface JadwalHandlerInterface
 {
     /**
-     * Get a Dosen given the identifier
+     * Get a Jadwal given the identifier
      *
      * @api
      *
      * @param mixed $id
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
     public function get($id);
 
     /**
-     * Get a list of Dosens.
+     * Get a list of Jadwals.
      *
      * @param int $limit  the limit of the result
      * @param int $offset starting from the offset
@@ -28,37 +28,37 @@ interface DosenHandlerInterface
     public function all($limit = 5, $offset = 0);
 
     /**
-     * Post Dosen, creates a new Dosen.
+     * Post Jadwal, creates a new Jadwal.
      *
      * @api
      *
      * @param array $parameters
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
     public function post(array $parameters);
 
     /**
-     * Edit a Dosen.
+     * Edit a Jadwal.
      *
      * @api
      *
-     * @param DosenInterface   $dosen
+     * @param JadwalInterface   $jadwal
      * @param array           $parameters
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
-    public function put(DosenInterface $dosen, array $parameters);
+    public function put(JadwalInterface $jadwal, array $parameters);
 
     /**
-     * Partially update a Dosen.
+     * Partially update a Jadwal.
      *
      * @api
      *
-     * @param DosenInterface   $dosen
+     * @param JadwalInterface   $jadwal
      * @param array           $parameters
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      */
-    public function patch(DosenInterface $dosen, array $parameters);
+    public function patch(JadwalInterface $jadwal, array $parameters);
 }

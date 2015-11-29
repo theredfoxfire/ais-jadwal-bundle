@@ -1,37 +1,23 @@
-Ais\DosenBundle\Entity\Dosen:
+Ais\JadwalBundle\Entity\Jadwal:
  type: entity
- table: dosen
+ table: jadwal
  id:
   id: 
    type: integer
    generator: { strategy: AUTO }
  fields:
-  kode:
+  run_id:
    type: string
-   length: 10
+   length: 20
    unique: true
-  nama:
-   type: string
-   length: 100
-  nama_singkat:
+  ruang_id:
+   type: integer
+  hari:
    type: string
    length: 30
    nullable: true
-  user_id:
+  slot_id:
    type: integer
-   nullable: true
-  email:
-   type: string
-   length: 100
-   nullable: true
-  phone:
-   type: string
-   length: 20
-   nullable: true
-  foto:
-   type: string
-   length: 100
-   nullable: true
   is_active:
    type: boolean
    nullable: true

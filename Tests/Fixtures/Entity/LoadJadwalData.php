@@ -1,25 +1,25 @@
 <?php
 
-namespace Ais\DosenBundle\Tests\Fixtures\Entity;
+namespace Ais\JadwalBundle\Tests\Fixtures\Entity;
 
-use Ais\DosenBundle\Entity\Dosen;
+use Ais\JadwalBundle\Entity\Jadwal;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 
-class LoadDosenData implements FixtureInterface
+class LoadJadwalData implements FixtureInterface
 {
-    static public $dosens = array();
+    static public $jadwals = array();
 
     public function load(ObjectManager $manager)
     {
-        $dosen = new Dosen();
-        $dosen->setTitle('title');
-        $dosen->setBody('body');
+        $jadwal = new Jadwal();
+        $jadwal->setTitle('title');
+        $jadwal->setBody('body');
 
-        $manager->persist($dosen);
+        $manager->persist($jadwal);
         $manager->flush();
 
-        self::$dosens[] = $dosen;
+        self::$jadwals[] = $jadwal;
     }
 }

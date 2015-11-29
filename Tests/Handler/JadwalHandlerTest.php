@@ -1,17 +1,17 @@
 <?php
 
-namespace Ais\DosenBundle\Tests\Handler;
+namespace Ais\JadwalBundle\Tests\Handler;
 
-use Ais\DosenBundle\Handler\DosenHandler;
-use Ais\DosenBundle\Model\DosenInterface;
-use Ais\DosenBundle\Entity\Dosen;
+use Ais\JadwalBundle\Handler\JadwalHandler;
+use Ais\JadwalBundle\Model\JadwalInterface;
+use Ais\JadwalBundle\Entity\Jadwal;
 
-class DosenHandlerTest extends \PHPUnit_Framework_TestCase
+class JadwalHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    const DOSEN_CLASS = 'Ais\DosenBundle\Tests\Handler\DummyDosen';
+    const DOSEN_CLASS = 'Ais\JadwalBundle\Tests\Handler\DummyJadwal';
 
-    /** @var DosenHandler */
-    protected $dosenHandler;
+    /** @var JadwalHandler */
+    protected $jadwalHandler;
     /** @var \PHPUnit_Framework_MockObject_MockObject */
     protected $om;
     /** @var \PHPUnit_Framework_MockObject_MockObject */
@@ -45,14 +45,14 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
     public function testGet()
     {
         $id = 1;
-        $dosen = $this->getDosen();
+        $jadwal = $this->getJadwal();
         $this->repository->expects($this->once())->method('find')
             ->with($this->equalTo($id))
-            ->will($this->returnValue($dosen));
+            ->will($this->returnValue($jadwal));
 
-        $this->dosenHandler = $this->createDosenHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
+        $this->jadwalHandler = $this->createJadwalHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
 
-        $this->dosenHandler->get($id);
+        $this->jadwalHandler->get($id);
     }
 
     public function testAll()
@@ -60,16 +60,16 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
         $offset = 1;
         $limit = 2;
 
-        $dosens = $this->getDosens(2);
+        $jadwals = $this->getJadwals(2);
         $this->repository->expects($this->once())->method('findBy')
             ->with(array(), null, $limit, $offset)
-            ->will($this->returnValue($dosens));
+            ->will($this->returnValue($jadwals));
 
-        $this->dosenHandler = $this->createDosenHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
+        $this->jadwalHandler = $this->createJadwalHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
 
-        $all = $this->dosenHandler->all($limit, $offset);
+        $all = $this->jadwalHandler->all($limit, $offset);
 
-        $this->assertEquals($dosens, $all);
+        $this->assertEquals($jadwals, $all);
     }
 
     public function testPost()
@@ -79,11 +79,11 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
 
         $parameters = array('title' => $title, 'body' => $body);
 
-        $dosen = $this->getDosen();
-        $dosen->setTitle($title);
-        $dosen->setBody($body);
+        $jadwal = $this->getJadwal();
+        $jadwal->setTitle($title);
+        $jadwal->setBody($body);
 
-        $form = $this->getMock('Ais\DosenBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
+        $form = $this->getMock('Ais\JadwalBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
         $form->expects($this->once())
             ->method('submit')
             ->with($this->anything());
@@ -92,20 +92,20 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $form->expects($this->once())
             ->method('getData')
-            ->will($this->returnValue($dosen));
+            ->will($this->returnValue($jadwal));
 
         $this->formFactory->expects($this->once())
             ->method('create')
             ->will($this->returnValue($form));
 
-        $this->dosenHandler = $this->createDosenHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
-        $dosenObject = $this->dosenHandler->post($parameters);
+        $this->jadwalHandler = $this->createJadwalHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
+        $jadwalObject = $this->jadwalHandler->post($parameters);
 
-        $this->assertEquals($dosenObject, $dosen);
+        $this->assertEquals($jadwalObject, $jadwal);
     }
 
     /**
-     * @expectedException Ais\DosenBundle\Exception\InvalidFormException
+     * @expectedException Ais\JadwalBundle\Exception\InvalidFormException
      */
     public function testPostShouldRaiseException()
     {
@@ -114,11 +114,11 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
 
         $parameters = array('title' => $title, 'body' => $body);
 
-        $dosen = $this->getDosen();
-        $dosen->setTitle($title);
-        $dosen->setBody($body);
+        $jadwal = $this->getJadwal();
+        $jadwal->setTitle($title);
+        $jadwal->setBody($body);
 
-        $form = $this->getMock('Ais\DosenBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
+        $form = $this->getMock('Ais\JadwalBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
         $form->expects($this->once())
             ->method('submit')
             ->with($this->anything());
@@ -130,8 +130,8 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->will($this->returnValue($form));
 
-        $this->dosenHandler = $this->createDosenHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
-        $this->dosenHandler->post($parameters);
+        $this->jadwalHandler = $this->createJadwalHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
+        $this->jadwalHandler->post($parameters);
     }
 
     public function testPut()
@@ -141,11 +141,11 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
 
         $parameters = array('title' => $title, 'body' => $body);
 
-        $dosen = $this->getDosen();
-        $dosen->setTitle($title);
-        $dosen->setBody($body);
+        $jadwal = $this->getJadwal();
+        $jadwal->setTitle($title);
+        $jadwal->setBody($body);
 
-        $form = $this->getMock('Ais\DosenBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
+        $form = $this->getMock('Ais\JadwalBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
         $form->expects($this->once())
             ->method('submit')
             ->with($this->anything());
@@ -154,16 +154,16 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $form->expects($this->once())
             ->method('getData')
-            ->will($this->returnValue($dosen));
+            ->will($this->returnValue($jadwal));
 
         $this->formFactory->expects($this->once())
             ->method('create')
             ->will($this->returnValue($form));
 
-        $this->dosenHandler = $this->createDosenHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
-        $dosenObject = $this->dosenHandler->put($dosen, $parameters);
+        $this->jadwalHandler = $this->createJadwalHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
+        $jadwalObject = $this->jadwalHandler->put($jadwal, $parameters);
 
-        $this->assertEquals($dosenObject, $dosen);
+        $this->assertEquals($jadwalObject, $jadwal);
     }
 
     public function testPatch()
@@ -173,11 +173,11 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
 
         $parameters = array('body' => $body);
 
-        $dosen = $this->getDosen();
-        $dosen->setTitle($title);
-        $dosen->setBody($body);
+        $jadwal = $this->getJadwal();
+        $jadwal->setTitle($title);
+        $jadwal->setBody($body);
 
-        $form = $this->getMock('Ais\DosenBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
+        $form = $this->getMock('Ais\JadwalBundle\Tests\FormInterface'); //'Symfony\Component\Form\FormInterface' bugs on iterator
         $form->expects($this->once())
             ->method('submit')
             ->with($this->anything());
@@ -186,42 +186,42 @@ class DosenHandlerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $form->expects($this->once())
             ->method('getData')
-            ->will($this->returnValue($dosen));
+            ->will($this->returnValue($jadwal));
 
         $this->formFactory->expects($this->once())
             ->method('create')
             ->will($this->returnValue($form));
 
-        $this->dosenHandler = $this->createDosenHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
-        $dosenObject = $this->dosenHandler->patch($dosen, $parameters);
+        $this->jadwalHandler = $this->createJadwalHandler($this->om, static::DOSEN_CLASS,  $this->formFactory);
+        $jadwalObject = $this->jadwalHandler->patch($jadwal, $parameters);
 
-        $this->assertEquals($dosenObject, $dosen);
+        $this->assertEquals($jadwalObject, $jadwal);
     }
 
 
-    protected function createDosenHandler($objectManager, $dosenClass, $formFactory)
+    protected function createJadwalHandler($objectManager, $jadwalClass, $formFactory)
     {
-        return new DosenHandler($objectManager, $dosenClass, $formFactory);
+        return new JadwalHandler($objectManager, $jadwalClass, $formFactory);
     }
 
-    protected function getDosen()
+    protected function getJadwal()
     {
-        $dosenClass = static::DOSEN_CLASS;
+        $jadwalClass = static::DOSEN_CLASS;
 
-        return new $dosenClass();
+        return new $jadwalClass();
     }
 
-    protected function getDosens($maxDosens = 5)
+    protected function getJadwals($maxJadwals = 5)
     {
-        $dosens = array();
-        for($i = 0; $i < $maxDosens; $i++) {
-            $dosens[] = $this->getDosen();
+        $jadwals = array();
+        for($i = 0; $i < $maxJadwals; $i++) {
+            $jadwals[] = $this->getJadwal();
         }
 
-        return $dosens;
+        return $jadwals;
     }
 }
 
-class DummyDosen extends Dosen
+class DummyJadwal extends Jadwal
 {
 }

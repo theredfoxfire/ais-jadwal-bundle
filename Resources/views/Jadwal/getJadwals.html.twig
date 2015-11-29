@@ -1,18 +1,18 @@
 {% block content %}
-    <h1 class="title">{{ 'dosen.list'|trans({}, 'AisDosenBundle') }}</h1>
+    <h1 class="title">{{ 'jadwal.list'|trans({}, 'AisJadwalBundle') }}</h1>
 
-    <ul id="dosen-list">
-        {% for dosen in dosens %}
+    <ul id="jadwal-list">
+        {% for jadwal in jadwals %}
             <li>
-                <a href="{{ path('api_1_get_dosen', {'id': dosen.id}) }}">{{ dosen.nama }}</a>
-                {#[<a href="{{ path('api_1_edit_dosens', {'id': dosen.id}) }}">{{ 'dosen.edit.link'|trans({}, 'AisDosenBundle') }}</a>]#}
-                {#[<a href="{{ path('api_1_remove_dosens', {'id': dosen.id}) }}">{{ 'dosen.remove.link'|trans({}, 'AisDosenBundle') }}</a>]#}
+                <a href="{{ path('api_1_get_jadwal', {'id': jadwal.id}) }}">{{ jadwal.runid }}</a>
+                {#[<a href="{{ path('api_1_edit_jadwals', {'id': jadwal.id}) }}">{{ 'jadwal.edit.link'|trans({}, 'AisJadwalBundle') }}</a>]#}
+                {#[<a href="{{ path('api_1_remove_jadwals', {'id': jadwal.id}) }}">{{ 'jadwal.remove.link'|trans({}, 'AisJadwalBundle') }}</a>]#}
             </li>
         {% else %}
-            <li>{{ 'dosen.list.empty'|trans({}, 'AisDosenBundle') }}</li>
+            <li>{{ 'jadwal.list.empty'|trans({}, 'AisJadwalBundle') }}</li>
         {% endfor %}
     </ul>
     <p>
-        <a href="{{ path('api_1_new_dosen') }}">{{ 'dosen.new.link'|trans({}, 'AisDosenBundle') }}</a>
+        <a href="{{ path('api_1_new_jadwal') }}">{{ 'jadwal.new.link'|trans({}, 'AisJadwalBundle') }}</a>
     </p>
 {% endblock %}

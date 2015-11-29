@@ -1,6 +1,6 @@
 <?php
 
-namespace Ais\DosenBundle\Controller;
+namespace Ais\JadwalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,15 +14,15 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-use Ais\DosenBundle\Exception\InvalidFormException;
-use Ais\DosenBundle\Form\DosenType;
-use Ais\DosenBundle\Model\DosenInterface;
+use Ais\JadwalBundle\Exception\InvalidFormException;
+use Ais\JadwalBundle\Form\JadwalType;
+use Ais\JadwalBundle\Model\JadwalInterface;
 
 
-class DosenController extends FOSRestController
+class JadwalController extends FOSRestController
 {
     /**
-     * List all dosens.
+     * List all jadwals.
      *
      * @ApiDoc(
      *   resource = true,
@@ -31,11 +31,11 @@ class DosenController extends FOSRestController
      *   }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing dosens.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many dosens to return.")
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing jadwals.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many jadwals to return.")
      *
      * @Annotations\View(
-     *  templateVar="dosens"
+     *  templateVar="jadwals"
      * )
      *
      * @param Request               $request      the request object
@@ -43,45 +43,45 @@ class DosenController extends FOSRestController
      *
      * @return array
      */
-    public function getDosensAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getJadwalsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null == $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
 
-        return $this->container->get('ais_dosen.dosen.handler')->all($limit, $offset);
+        return $this->container->get('ais_jadwal.jadwal.handler')->all($limit, $offset);
     }
 
     /**
-     * Get single Dosen.
+     * Get single Jadwal.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Gets a Dosen for a given id",
-     *   output = "Ais\DosenBundle\Entity\Dosen",
+     *   description = "Gets a Jadwal for a given id",
+     *   output = "Ais\JadwalBundle\Entity\Jadwal",
      *   statusCodes = {
      *     200 = "Returned when successful",
-     *     404 = "Returned when the dosen is not found"
+     *     404 = "Returned when the jadwal is not found"
      *   }
      * )
      *
-     * @Annotations\View(templateVar="dosen")
+     * @Annotations\View(templateVar="jadwal")
      *
-     * @param int     $id      the dosen id
+     * @param int     $id      the jadwal id
      *
      * @return array
      *
-     * @throws NotFoundHttpException when dosen not exist
+     * @throws NotFoundHttpException when jadwal not exist
      */
-    public function getDosenAction($id)
+    public function getJadwalAction($id)
     {
-        $dosen = $this->getOr404($id);
+        $jadwal = $this->getOr404($id);
 
-        return $dosen;
+        return $jadwal;
     }
 
     /**
-     * Presents the form to use to create a new dosen.
+     * Presents the form to use to create a new jadwal.
      *
      * @ApiDoc(
      *   resource = true,
@@ -96,13 +96,13 @@ class DosenController extends FOSRestController
      *
      * @return FormTypeInterface
      */
-    public function newDosenAction()
+    public function newJadwalAction()
     {
-        return $this->createForm(new DosenType());
+        return $this->createForm(new JadwalType());
     }
     
     /**
-     * Presents the form to use to edit dosen.
+     * Presents the form to use to edit jadwal.
      *
      * @ApiDoc(
      *   resource = true,
@@ -112,31 +112,31 @@ class DosenController extends FOSRestController
      * )
      *
      * @Annotations\View(
-     *  template = "AisDosenBundle:Dosen:editDosen.html.twig",
+     *  template = "AisJadwalBundle:Jadwal:editJadwal.html.twig",
      *  templateVar = "form"
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the dosen id
+     * @param int     $id      the jadwal id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when dosen not exist
+     * @throws NotFoundHttpException when jadwal not exist
      */
-    public function editDosenAction($id)
+    public function editJadwalAction($id)
     {
-		$dosen = $this->getDosenAction($id);
+		$jadwal = $this->getJadwalAction($id);
 		
-        return array('form' => $this->createForm(new DosenType(), $dosen), 'dosen' => $dosen);
+        return array('form' => $this->createForm(new JadwalType(), $jadwal), 'jadwal' => $jadwal);
     }
 
     /**
-     * Create a Dosen from the submitted data.
+     * Create a Jadwal from the submitted data.
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new dosen from the submitted data.",
-     *   input = "Ais\DosenBundle\Form\DosenType",
+     *   description = "Creates a new jadwal from the submitted data.",
+     *   input = "Ais\JadwalBundle\Form\JadwalType",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -144,7 +144,7 @@ class DosenController extends FOSRestController
      * )
      *
      * @Annotations\View(
-     *  template = "AisDosenBundle:Dosen:newDosen.html.twig",
+     *  template = "AisJadwalBundle:Jadwal:newJadwal.html.twig",
      *  statusCode = Codes::HTTP_BAD_REQUEST,
      *  templateVar = "form"
      * )
@@ -153,19 +153,19 @@ class DosenController extends FOSRestController
      *
      * @return FormTypeInterface|View
      */
-    public function postDosenAction(Request $request)
+    public function postJadwalAction(Request $request)
     {
         try {
-            $newDosen = $this->container->get('ais_dosen.dosen.handler')->post(
+            $newJadwal = $this->container->get('ais_jadwal.jadwal.handler')->post(
                 $request->request->all()
             );
 
             $routeOptions = array(
-                'id' => $newDosen->getId(),
+                'id' => $newJadwal->getId(),
                 '_format' => $request->get('_format')
             );
 
-            return $this->routeRedirectView('api_1_get_dosen', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_jadwal', $routeOptions, Codes::HTTP_CREATED);
 
         } catch (InvalidFormException $exception) {
 
@@ -174,52 +174,52 @@ class DosenController extends FOSRestController
     }
 
     /**
-     * Update existing dosen from the submitted data or create a new dosen at a specific location.
+     * Update existing jadwal from the submitted data or create a new jadwal at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
-     *   input = "Ais\DosenBundle\Form\DosenType",
+     *   input = "Ais\JadwalBundle\Form\JadwalType",
      *   statusCodes = {
-     *     201 = "Returned when the Dosen is created",
+     *     201 = "Returned when the Jadwal is created",
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
      *   }
      * )
      *
      * @Annotations\View(
-     *  template = "AisDosenBundle:Dosen:editDosen.html.twig",
+     *  template = "AisJadwalBundle:Jadwal:editJadwal.html.twig",
      *  templateVar = "form"
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the dosen id
+     * @param int     $id      the jadwal id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when dosen not exist
+     * @throws NotFoundHttpException when jadwal not exist
      */
-    public function putDosenAction(Request $request, $id)
+    public function putJadwalAction(Request $request, $id)
     {
         try {
-            if (!($dosen = $this->container->get('ais_dosen.dosen.handler')->get($id))) {
+            if (!($jadwal = $this->container->get('ais_jadwal.jadwal.handler')->get($id))) {
                 $statusCode = Codes::HTTP_CREATED;
-                $dosen = $this->container->get('ais_dosen.dosen.handler')->post(
+                $jadwal = $this->container->get('ais_jadwal.jadwal.handler')->post(
                     $request->request->all()
                 );
             } else {
                 $statusCode = Codes::HTTP_NO_CONTENT;
-                $dosen = $this->container->get('ais_dosen.dosen.handler')->put(
-                    $dosen,
+                $jadwal = $this->container->get('ais_jadwal.jadwal.handler')->put(
+                    $jadwal,
                     $request->request->all()
                 );
             }
 
             $routeOptions = array(
-                'id' => $dosen->getId(),
+                'id' => $jadwal->getId(),
                 '_format' => $request->get('_format')
             );
 
-            return $this->routeRedirectView('api_1_get_dosen', $routeOptions, $statusCode);
+            return $this->routeRedirectView('api_1_get_jadwal', $routeOptions, $statusCode);
 
         } catch (InvalidFormException $exception) {
 
@@ -228,11 +228,11 @@ class DosenController extends FOSRestController
     }
 
     /**
-     * Update existing dosen from the submitted data or create a new dosen at a specific location.
+     * Update existing jadwal from the submitted data or create a new jadwal at a specific location.
      *
      * @ApiDoc(
      *   resource = true,
-     *   input = "Ais\DosenBundle\Form\DosenType",
+     *   input = "Ais\JadwalBundle\Form\JadwalType",
      *   statusCodes = {
      *     204 = "Returned when successful",
      *     400 = "Returned when the form has errors"
@@ -240,31 +240,31 @@ class DosenController extends FOSRestController
      * )
      *
      * @Annotations\View(
-     *  template = "AisDosenBundle:Dosen:editDosen.html.twig",
+     *  template = "AisJadwalBundle:Jadwal:editJadwal.html.twig",
      *  templateVar = "form"
      * )
      *
      * @param Request $request the request object
-     * @param int     $id      the dosen id
+     * @param int     $id      the jadwal id
      *
      * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when dosen not exist
+     * @throws NotFoundHttpException when jadwal not exist
      */
-    public function patchDosenAction(Request $request, $id)
+    public function patchJadwalAction(Request $request, $id)
     {
         try {
-            $dosen = $this->container->get('ais_dosen.dosen.handler')->patch(
+            $jadwal = $this->container->get('ais_jadwal.jadwal.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
 
             $routeOptions = array(
-                'id' => $dosen->getId(),
+                'id' => $jadwal->getId(),
                 '_format' => $request->get('_format')
             );
 
-            return $this->routeRedirectView('api_1_get_dosen', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_jadwal', $routeOptions, Codes::HTTP_NO_CONTENT);
 
         } catch (InvalidFormException $exception) {
 
@@ -273,37 +273,37 @@ class DosenController extends FOSRestController
     }
 
     /**
-     * Fetch a Dosen or throw an 404 Exception.
+     * Fetch a Jadwal or throw an 404 Exception.
      *
      * @param mixed $id
      *
-     * @return DosenInterface
+     * @return JadwalInterface
      *
      * @throws NotFoundHttpException
      */
     protected function getOr404($id)
     {
-        if (!($dosen = $this->container->get('ais_dosen.dosen.handler')->get($id))) {
+        if (!($jadwal = $this->container->get('ais_jadwal.jadwal.handler')->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
         }
 
-        return $dosen;
+        return $jadwal;
     }
     
-    public function postUpdateDosenAction(Request $request, $id)
+    public function postUpdateJadwalAction(Request $request, $id)
     {
 		try {
-            $dosen = $this->container->get('ais_dosen.dosen.handler')->patch(
+            $jadwal = $this->container->get('ais_jadwal.jadwal.handler')->patch(
                 $this->getOr404($id),
                 $request->request->all()
             );
 
             $routeOptions = array(
-                'id' => $dosen->getId(),
+                'id' => $jadwal->getId(),
                 '_format' => $request->get('_format')
             );
 
-            return $this->routeRedirectView('api_1_get_dosen', $routeOptions, Codes::HTTP_NO_CONTENT);
+            return $this->routeRedirectView('api_1_get_jadwal', $routeOptions, Codes::HTTP_NO_CONTENT);
 
         } catch (InvalidFormException $exception) {
 

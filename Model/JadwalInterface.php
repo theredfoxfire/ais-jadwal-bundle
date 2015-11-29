@@ -1,8 +1,8 @@
 <?php
 
-namespace Ais\DosenBundle\Model;
+namespace Ais\JadwalBundle\Model;
 
-Interface DosenInterface
+Interface JadwalInterface
 {
     /**
      * Get id
@@ -10,144 +10,96 @@ Interface DosenInterface
      * @return integer
      */
     public function getId();
-    
-    /**
-     * Set kode
-     *
-     * @param string $kode
-     *
-     * @return Dosen
-     */
-    public function setKode($kode);
 
     /**
-     * Get kode
+     * Set runId
      *
-     * @return string
+     * @param string $runId
+     *
+     * @return Jadwal
      */
-    public function getKode();
+    public function setRunId($runId);
 
     /**
-     * Set nama
+     * Get runId
      *
-     * @param string $nama
-     *
-     * @return Dosen
+     * @return string
      */
-    public function setNama($nama);
+    public function getRunId();
 
     /**
-     * Get nama
+     * Set ruangId
+     *
+     * @param integer $ruangId
+     *
+     * @return Jadwal
+     */
+    public function setRuangId($ruangId);
+
+    /**
+     * Get ruangId
+     *
+     * @return integer
+     */
+    public function getRuangId();
+
+    /**
+     * Set hari
+     *
+     * @param string $hari
+     *
+     * @return Jadwal
+     */
+    public function setHari($hari);
+
+    /**
+     * Get hari
      *
      * @return string
      */
-    public function getNama();
-    
+    public function getHari();
+
     /**
-     * Set namaSingkat
+     * Set slotId
      *
-     * @param string $namaSingkat
+     * @param integer $slotId
      *
-     * @return Dosen
+     * @return Jadwal
      */
-    public function setNamaSingkat($namaSingkat);
-    
+    public function setSlotId($slotId);
+
     /**
-     * Get namaSingkat
+     * Get slotId
      *
-     * @return string
+     * @return integer
      */
-    public function getNamaSingkat();
-    
-    /**
-     * Set userId
-     *
-     * @param string $userId
-     *
-     * @return Dosen
-     */
-    public function setUserId($userId);
-    
-    /**
-     * Get userId
-     *
-     * @return string
-     */
-    public function getUserId();
-    
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Dosen
-     */
-    public function setEmail($email);
-    
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail();
-    
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return Dosen
-     */
-    public function setPhone($phone);
-    
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone();
-    
-    /**
-     * Set foto
-     *
-     * @param string $foto
-     *
-     * @return Dosen
-     */
-    public function setFoto($foto);
-    
-    /**
-     * Get foto
-     *
-     * @return string
-     */
-    public function getFoto();
-    
+    public function getSlotId();
+
     /**
      * Set isActive
      *
      * @param boolean $isActive
      *
-     * @return Dosen
+     * @return Jadwal
      */
     public function setIsActive($isActive);
-    
+
     /**
      * Get isActive
      *
      * @return boolean
      */
     public function getIsActive();
-    
+
     /**
      * Set isDelete
      *
      * @param boolean $isDelete
      *
-     * @return Dosen
+     * @return Jadwal
      */
     public function setIsDelete($isDelete);
-    
+
     /**
      * Get isDelete
      *

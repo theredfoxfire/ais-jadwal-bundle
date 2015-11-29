@@ -1,5 +1,5 @@
 <?php
-namespace Ais\DosenBundle\Exception;
+namespace Ais\JadwalBundle\Exception;
 
 class InvalidFormException extends \RuntimeException
 {
