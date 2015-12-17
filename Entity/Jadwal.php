@@ -200,4 +200,3 @@ class Jadwal implements JadwalInterface
         return $this->is_delete;
     }
 }
-

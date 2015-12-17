@@ -1,6 +1,7 @@
 Ais\JadwalBundle\Entity\Jadwal:
  type: entity
  table: jadwal
+ repositoryClass: Ais\JadwalBundle\Repository\JadwalRepository
  id:
   id: 
    type: integer

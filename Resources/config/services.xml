@@ -16,6 +16,16 @@
             <argument>%ais_jadwal.jadwal.class%</argument>
             <argument type="service" id="form.factory"></argument>
         </service>
+        
+        <service id="ais_jadwal.jadwal.manager" class="Doctrine\ORM\EntityManager" factory-service="doctrine" factory-method="getManagerForClass">
+			<argument>%ais_jadwal.jadwal.class%</argument>
+		</service>
+        
+        <service id="ais_jadwal.jadwal.repository" 
+			class="Ais\JadwalBundle\Repository\JadwalRepository"
+			factory-service="ais_jadwal.jadwal.manager" factory-method="getRepository">
+				<argument>%ais_jadwal.jadwal.class%</argument>
+		</service>
     </services>
 
 </container>
