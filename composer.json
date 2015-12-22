@@ -1,5 +1,5 @@
 {
-    "name" : "Ais/JadwalBundle",
+    "name" : "ais/jadwalbundle",
     "description" : "A bundle filled with Jadwal",
     "type" : "symfony-bundle",
     "authors" : [{
