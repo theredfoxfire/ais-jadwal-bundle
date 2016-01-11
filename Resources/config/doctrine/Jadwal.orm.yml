@@ -1,0 +1,27 @@
+Ais\JadwalBundle\Entity\Jadwal:
+ type: entity
+ table: jadwal
+ repositoryClass: Ais\JadwalBundle\Repository\JadwalRepository
+ id:
+  id: 
+   type: integer
+   generator: { strategy: AUTO }
+ fields:
+  run_id:
+   type: string
+   length: 20
+   unique: true
+  ruang_id:
+   type: integer
+  hari:
+   type: string
+   length: 30
+   nullable: true
+  slot_id:
+   type: integer
+  is_active:
+   type: boolean
+   nullable: true
+  is_delete:
+   type: boolean
+   nullable: true

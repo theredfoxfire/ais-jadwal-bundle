@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="ais_jadwal.jadwal.handler.class">Ais\JadwalBundle\Handler\JadwalHandler</parameter>
+        <parameter key="ais_jadwal.jadwal.class">Ais\JadwalBundle\Entity\Jadwal</parameter>
+    </parameters>
+
+    <services>
+        <service id="ais_jadwal.jadwal.handler" class="%ais_jadwal.jadwal.handler.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%ais_jadwal.jadwal.class%</argument>
+            <argument type="service" id="form.factory"></argument>
+        </service>
+        
+        <service id="ais_jadwal.jadwal.manager" class="Doctrine\ORM\EntityManager" factory-service="doctrine" factory-method="getManagerForClass">
+			<argument>%ais_jadwal.jadwal.class%</argument>
+		</service>
+        
+        <service id="ais_jadwal.jadwal.repository" 
+			class="Ais\JadwalBundle\Repository\JadwalRepository"
+			factory-service="ais_jadwal.jadwal.manager" factory-method="getRepository">
+				<argument>%ais_jadwal.jadwal.class%</argument>
+		</service>
+    </services>
+
+</container>

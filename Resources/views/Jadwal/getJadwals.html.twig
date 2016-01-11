@@ -1,0 +1,18 @@
+{% block content %}
+    <h1 class="title">{{ 'jadwal.list'|trans({}, 'AisJadwalBundle') }}</h1>
+
+    <ul id="jadwal-list">
+        {% for jadwal in jadwals %}
+            <li>
+                <a href="{{ path('api_1_get_jadwal', {'id': jadwal.id}) }}">{{ jadwal.runid }}</a>
+                {#[<a href="{{ path('api_1_edit_jadwals', {'id': jadwal.id}) }}">{{ 'jadwal.edit.link'|trans({}, 'AisJadwalBundle') }}</a>]#}
+                {#[<a href="{{ path('api_1_remove_jadwals', {'id': jadwal.id}) }}">{{ 'jadwal.remove.link'|trans({}, 'AisJadwalBundle') }}</a>]#}
+            </li>
+        {% else %}
+            <li>{{ 'jadwal.list.empty'|trans({}, 'AisJadwalBundle') }}</li>
+        {% endfor %}
+    </ul>
+    <p>
+        <a href="{{ path('api_1_new_jadwal') }}">{{ 'jadwal.new.link'|trans({}, 'AisJadwalBundle') }}</a>
+    </p>
+{% endblock %}

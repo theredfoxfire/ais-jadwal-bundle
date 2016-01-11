@@ -1,0 +1,5 @@
+ais_jadwal_jadwal:
+    type: rest
+    prefix: /v1
+    resource: Ais\JadwalBundle\Controller\JadwalController
+    name_prefix:  api_1_ # naming collision
